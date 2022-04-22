@@ -14,3 +14,5 @@ start:
     npm start
     click 'tunnel', read QR code with Expo Go app
 
+android application id:
+    com.jergra43.namesgamereactnative

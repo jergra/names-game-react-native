@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Alert, Modal, Pressable } from 'react-native';
 import {colors, CLEAR, ENTER, colorsToEmoji} from './src/constants'
