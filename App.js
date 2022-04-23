@@ -33,8 +33,12 @@ export default function App() {
   const [gameState, setGameState] = useState('playing')
 
   useEffect(() => {
+    function delayModalClose() {
+        setModalVisible(false)
+    }
     if (currentRow > 0) {
-      setModalVisible(false)
+      setTimeout(delayModalClose, 100);
+      //setModalVisible(false)
       checkIfValid()
     }
   }, [currentRow])
@@ -125,19 +129,20 @@ export default function App() {
       return
     }
 
-    function briefPause() {
+    function delayIncrement() {
       if (currentCol === rows[0].length) {
-          setCurrentRow(currentRow + 1)
-        }  
+        setCurrentRow(currentRow + 1)
+      }  
+      return
     }
 
     if (key === ENTER) {
       setModalVisible(true)
-      const myTimeout = setTimeout(briefPause, 500);
+      setTimeout(delayIncrement, 50);
       // if (currentCol === rows[0].length) {
       //   setCurrentRow(currentRow + 1)
       // }  
-      return
+      // return
     }
     
     if (currentCol < rows[0].length) {
@@ -214,7 +219,7 @@ export default function App() {
       
       <View style={styles.centeredView}>
         <Modal
-          animationType="slide"
+          animationType="none"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
@@ -254,6 +259,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.lightgrey,
+    //color: 'teal',
     fontSize: 32,
     fontWeight: 'bold',
     letterSpacing: 7,
@@ -286,6 +292,8 @@ const styles = StyleSheet.create({
     fontSize: 28
   },
 
+
+
   centeredView: {
     flex: 1,
     justifyContent: "center",
@@ -293,8 +301,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: 400,
-    height: 500,
-    marginBottom: 150,
+    height: 650,
+    marginTop: 40,
     backgroundColor: colors.black,
     borderRadius: 20,
     padding: 35,
