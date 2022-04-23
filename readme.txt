@@ -1,4 +1,4 @@
-April 21, 2022
+April 22, 2022
 
 C:\dev\names-game-react-native
 
@@ -14,5 +14,13 @@ start:
     npm start
     click 'tunnel', read QR code with Expo Go app
 
-android application id:
-    com.jergra43.namesgamereactnative
+deployed:
+
+    Use the Expo Go app to read the QR code at:
+
+    https://expo.dev/@jergra43/names-game-react-native?serviceType=classic&distribution=expo-go
+    https://expo.dev/@jergra43/names-game-react-native
+
+
+update:
+    expo publish

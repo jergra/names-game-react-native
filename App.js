@@ -125,11 +125,18 @@ export default function App() {
       return
     }
 
+    function briefPause() {
+      if (currentCol === rows[0].length) {
+          setCurrentRow(currentRow + 1)
+        }  
+    }
+
     if (key === ENTER) {
       setModalVisible(true)
-      if (currentCol === rows[0].length) {
-        setCurrentRow(currentRow + 1)
-      }  
+      const myTimeout = setTimeout(briefPause, 500);
+      // if (currentCol === rows[0].length) {
+      //   setCurrentRow(currentRow + 1)
+      // }  
       return
     }
     
