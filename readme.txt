@@ -21,6 +21,16 @@ deployed:
     https://expo.dev/@jergra43/names-game-react-native?serviceType=classic&distribution=expo-go
     https://expo.dev/@jergra43/names-game-react-native
 
+    The react-native app code was adjusted to make a website version:
+    https://names-game-react-native-web.vercel.app/
+    https://github.com/jergra/names-game-react-native-web
+    C:\dev\names-game-react-native-web
+
+    If the aim is to use react-native-web to have a website,
+    it would be simpler and better to build, with that aim,
+    from scratch, rather than adjust an already built mobile
+    app, as we did here.
+
 
 update:
     expo publish

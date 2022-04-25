@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: colors.lightgrey,
-    //color: 'teal',
+    //color: colors.lightgrey,
+    color: 'lightgreen',
     fontSize: 32,
     fontWeight: 'bold',
     letterSpacing: 7,
