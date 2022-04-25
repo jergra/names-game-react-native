@@ -26,7 +26,7 @@ deployed:
     https://github.com/jergra/names-game-react-native-web
     C:\dev\names-game-react-native-web
 
-    There are some animation effects using react-native-renanimate that
+    Some animation effects, using react-native-renanimated, 
     were added to the mobile-app version but not to the web version.
 
     If the aim is to use react-native-web to have a website,
