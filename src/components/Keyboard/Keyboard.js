@@ -27,13 +27,17 @@ const Keyboard = ({
   };
 
   return (
-    <Animated.View 
-      entering={SlideInDown.springify().mass(0.5).delay(1000)} 
+    // <Animated.View 
+    //   entering={SlideInDown.springify().mass(0.5).delay(1000)} 
+    //   style={styles.keyboard}
+    // >
+    <View 
       style={styles.keyboard}
     >
       {keys.map((keyRow, i) => (
         <View 
-          style={styles.row} key={`row-${i}`}
+          style={styles.row} 
+          key={`row-${i}`}
         >
           {keyRow.map((key) => (
             <Pressable
@@ -51,7 +55,8 @@ const Keyboard = ({
           ))}
         </View>
       ))}
-    </Animated.View>
+    {/* </Animated.View> */}
+    </View>
   );
 };
 

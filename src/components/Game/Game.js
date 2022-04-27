@@ -20,7 +20,8 @@ const randomChoice = Math.floor(Math.random() * NAMES.length)
 //const name = NAMES[randomChoice]
 
 const Game = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  //const [modalVisible, setModalVisible] = useState(false);
+  const [showKeyboard, setShowKeyboard] = useState(true)
   const [name, setName] = useState(NAMES[randomChoice])
   console.log('name:', name)
 
@@ -35,12 +36,15 @@ const Game = () => {
   const [gameState, setGameState] = useState('playing')
 
   useEffect(() => {
-    function delayModalClose() {
-        setModalVisible(false)
+    // function delayModalClose() {
+    //     //setModalVisible(false)
+    // }
+    function delayKeyboard() {
+        setShowKeyboard(true)
     }
     if (currentRow > 0) {
-      setTimeout(delayModalClose, 100);
-      //setModalVisible(false)
+      //setTimeout(delayModalClose, 100);
+      setTimeout(delayKeyboard, 50);
       checkIfValid()
     }
   }, [currentRow])
@@ -131,20 +135,21 @@ const Game = () => {
       return
     }
 
-    function delayIncrement() {
+    // function delayIncrement() {
+    //   if (currentCol === rows[0].length) {
+    //     setCurrentRow(currentRow + 1)
+    //   }  
+    //   return
+    // }
+
+    if (key === ENTER) {
+      //setModalVisible(true)
+      setShowKeyboard(false)
+      //setTimeout(delayIncrement, 50);
       if (currentCol === rows[0].length) {
         setCurrentRow(currentRow + 1)
       }  
       return
-    }
-
-    if (key === ENTER) {
-      setModalVisible(true)
-      setTimeout(delayIncrement, 50);
-      // if (currentCol === rows[0].length) {
-      //   setCurrentRow(currentRow + 1)
-      // }  
-      // return
     }
     
     if (currentCol < rows[0].length) {
@@ -236,15 +241,21 @@ const Game = () => {
         ))}
         
       </ScrollView>
-
-      <Keyboard 
-        onKeyPressed={onKeyPressed} 
-        greenCaps={greenCaps} 
-        yellowCaps={yellowCaps} 
-        greyCaps={greyCaps} 
-      />
+      {
+        showKeyboard ? (
+          <Keyboard 
+            onKeyPressed={onKeyPressed} 
+            greenCaps={greenCaps} 
+            yellowCaps={yellowCaps} 
+            greyCaps={greyCaps} 
+          />
+        ) : (
+          <View></View>
+        )
+      }
       
-      <View style={styles.centeredView}>
+      
+      {/* <View style={styles.centeredView}>
         <Modal
           animationType="none"
           transparent={true}
@@ -257,22 +268,10 @@ const Game = () => {
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}></Text>
-              {/* <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.textStyle}>ok</Text>
-              </Pressable> */}
             </View>
           </View>
         </Modal>
-        {/* <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </Pressable> */}
-      </View> 
+      </View>  */}
     </>
   );
 }
