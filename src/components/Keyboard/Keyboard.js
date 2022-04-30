@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import { keys, ENTER, CLEAR, colors } from "../../constants";
 import styles, { keyWidth } from "./Keyboard.styles";
-import Animated, {SlideInDown, FlipInEasyY, ZoomIn} from 'react-native-reanimated'
+//import Animated, {SlideInDown, FlipInEasyY, ZoomIn} from 'react-native-reanimated'
 
 const Keyboard = ({
   onKeyPressed = () => {},
@@ -39,11 +39,10 @@ const Keyboard = ({
           style={styles.row} 
           key={`row-${i}`}
         >
-          {keyRow.map((key) => (
+          {keyRow.map((key, index) => (
             <Pressable
               onPress={() => onKeyPressed(key)}
-              //disabled={greyCaps.includes(key)}
-              key={key}
+              key={index}
               style={[
                 styles.key,
                 isLongButton(key) ? { width: keyWidth * 1.4 } : {},

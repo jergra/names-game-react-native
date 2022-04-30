@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react'
-//import { StatusBar } from 'expo-status-bar';
 import { Text, View, ScrollView, Alert, Modal, Pressable } from 'react-native';
 import {colors, CLEAR, ENTER, colorsToEmoji} from '../../constants'
-import Keyboard from '../Keyboard'
+import Keyboard from '../Keyboard/Keyboard'
 import * as Clipboard from 'expo-clipboard'
 import { NAMES } from '../../names/namesList'
 import { VALID_NAMES } from '../../names/validNames'
 import styles from "./Game.styles";
-import Animated, {SlideInDown, SlideInLeft, ZoomIn, FlipInEasyY} from 'react-native-reanimated'
+import Animated, {SlideInDown, SlideInLeft, SlideInUp, ZoomIn, FlipInEasyY} from 'react-native-reanimated'
+import EndScreen from '../EndScreen/EndScreen';
 
 
 const NUMBER_OF_TRIES = 6
@@ -20,10 +20,16 @@ const randomChoice = Math.floor(Math.random() * NAMES.length)
 //const name = NAMES[randomChoice]
 
 const Game = () => {
-  //const [modalVisible, setModalVisible] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(true)
   const [name, setName] = useState(NAMES[randomChoice])
   console.log('name:', name)
+
+  useEffect(() => {
+    const choice = Math.floor(Math.random() * NAMES.length)
+    const name = NAMES[choice]  
+    setName(name)
+    console.log('name inside useEffect:', name)
+  }, [])
 
   const letters = name.split('')
   
@@ -36,14 +42,10 @@ const Game = () => {
   const [gameState, setGameState] = useState('playing')
 
   useEffect(() => {
-    // function delayModalClose() {
-    //     //setModalVisible(false)
-    // }
     function delayKeyboard() {
         setShowKeyboard(true)
     }
     if (currentRow > 0) {
-      //setTimeout(delayModalClose, 100);
       setTimeout(delayKeyboard, 50);
       checkIfValid()
     }
@@ -51,7 +53,6 @@ const Game = () => {
 
   const checkIfValid = () => {
     const row = rows[currentRow - 1].join('')
-    //console.log('row in checkIfValid:', row)
     if (!VALID_NAMES.includes(row)) {
       console.log(row, 'is not a valid name')
       rows.splice(currentRow - 1, 1, Array(letters.length).fill('') )
@@ -69,19 +70,29 @@ const Game = () => {
     }
   }
 
+  const Won = () => {
+    setGameState('won')
+  }
+
+  const Lost = () => {
+    setGameState('lost')
+  }
+
   const checkGameState = () => {
     if (checkIfWon() && gameState !== 'won') {
-      Alert.alert('Hurray!', 'You won!', [
-        {text: 'Play Again', onPress: restart},
-        {text: 'Share', onPress: shareScore}
-      ])
-      setGameState('won')
+      // Alert.alert('Hurray!', 'You won!', [
+      //   {text: 'Play Again', onPress: restart},
+      //   {text: 'Share', onPress: shareScore}
+      // ])
+      setTimeout(Won, 2000)
+      //setGameState('won')
     } else if (checkIfLost() && gameState !== 'lost') {
-      Alert.alert(name.toUpperCase(), '', [
-        {text: 'Play Again', onPress: restart},
-        {text: 'Share', onPress: shareScore}
-      ])
-      setGameState('lost')
+      // Alert.alert(name.toUpperCase(), '', [
+      //   {text: 'Play Again', onPress: restart},
+      //   {text: 'Share', onPress: shareScore}
+      // ])
+      setTimeout(Lost, 2000)
+      //setGameState('lost')
     }
   }
 
@@ -108,16 +119,16 @@ const Game = () => {
     ])
   }
 
-  const restart = () => {
-    const choice = Math.floor(Math.random() * NAMES.length)
-    setName(NAMES[choice])
-    setRows(
-      new Array(NUMBER_OF_TRIES).fill(new Array(letters.length).fill(''))
-    )
-    setCurrentRow(0)
-    setCurrentCol(0)
-    setGameState('playing')
-  }
+  // const restart = () => {
+  //   const choice = Math.floor(Math.random() * NAMES.length)
+  //   setName(NAMES[choice])
+  //   setRows(
+  //     new Array(NUMBER_OF_TRIES).fill(new Array(letters.length).fill(''))
+  //   )
+  //   setCurrentRow(0)
+  //   setCurrentCol(0)
+  //   setGameState('playing')
+  // }
 
   const onKeyPressed = (key) => {
     if (gameState !== 'playing') {
@@ -135,18 +146,9 @@ const Game = () => {
       return
     }
 
-    // function delayIncrement() {
-    //   if (currentCol === rows[0].length) {
-    //     setCurrentRow(currentRow + 1)
-    //   }  
-    //   return
-    // }
-
     if (key === ENTER) {
-      //setModalVisible(true)
-      setShowKeyboard(false)
-      //setTimeout(delayIncrement, 50);
       if (currentCol === rows[0].length) {
+        setShowKeyboard(false)
         setCurrentRow(currentRow + 1)
       }  
       return
@@ -190,12 +192,19 @@ const Game = () => {
   const greyCaps = getAllLettersWithColor(colors.darkgrey)
 
   const getCellStyle = (i, j)  => [
-  styles.cell, 
-    {
-      borderColor: isCellActive(i, j) ? colors.grey : colors.darkgrey, 
-      backgroundColor: getCellBGColor(i, j)
-    }
+    styles.cell, 
+      {
+        borderColor: isCellActive(i, j) ? colors.grey : colors.darkgrey, 
+        backgroundColor: getCellBGColor(i, j)
+      }
   ]
+
+  if (gameState !== 'playing') {
+    return (
+        <EndScreen won={gameState === 'won'} name={name} currentRow={currentRow} />
+    )
+  }
+  
 
   return (
     <>
@@ -210,7 +219,7 @@ const Game = () => {
               <>
                 {i < currentRow && (
                   <Animated.View 
-                    entering={FlipInEasyY.delay(600 + j * 120)}
+                    entering={FlipInEasyY.delay(200 + j * 200)}
                     key={`cell-color-${i}-${j}`}
                     style={getCellStyle(i, j)}
                   >
@@ -239,7 +248,6 @@ const Game = () => {
             ))}
           </Animated.View>
         ))}
-        
       </ScrollView>
       {
         showKeyboard ? (
@@ -253,25 +261,6 @@ const Game = () => {
           <View></View>
         )
       }
-      
-      
-      {/* <View style={styles.centeredView}>
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}></Text>
-            </View>
-          </View>
-        </Modal>
-      </View>  */}
     </>
   );
 }

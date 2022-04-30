@@ -1,3 +1,5 @@
+2:20
+
 April 22, 2022
 
 C:\dev\names-game-react-native
@@ -27,7 +29,7 @@ deployed:
     C:\dev\names-game-react-native-web
 
     Animation effects, using react-native-renanimated, 
-    were added to the mobile-app version, but not here.
+    were added to the mobile-app version, but not to the website version.
     React-native-renanimated seems not to be compatible with
     react-native-web.
 

@@ -8,7 +8,7 @@ const keyHeight = keyWidth * 1.3;
 export default StyleSheet.create({
   keyboard: {
     alignSelf: "stretch",
-    marginTop: "auto",
+    marginTop: 'auto',
     marginBottom: 20
   },
   row: {
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   key: {
     width: keyWidth - 4,
     height: keyHeight - 4,
-    margin: 2,
+    margin: 3,
     borderRadius: 5,
     backgroundColor: colors.grey,
     justifyContent: "center",

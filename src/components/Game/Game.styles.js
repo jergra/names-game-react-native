@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import {colors} from '../../constants'
 
 export default StyleSheet.create({
@@ -34,6 +34,7 @@ export default StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
     },
+    
     modalView: {
     width: 400,
     height: 650,
