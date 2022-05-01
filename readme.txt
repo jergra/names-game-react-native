@@ -37,6 +37,9 @@ deployed:
     it would be simpler and better to build it from scratch, 
     rather than adjust an already built mobile app.
 
+Note: to clear AsyncStorage, on my Android I did this:
+    Settings -> Apps -> Expo Go -> Storage -> Clear data
+
 
 update:
     expo publish

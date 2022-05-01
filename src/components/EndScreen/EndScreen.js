@@ -52,7 +52,7 @@ const GuessDistributionLine = ({position, amount, percentage}) => (
 
 const GuessDistribution = ({guessesInfo}) => {
 
-    console.log('guessesInfo in GuessDistribution:', guessesInfo)
+    //console.log('guessesInfo in GuessDistribution:', guessesInfo)
     
     const getWidth = (guessLine) => {
         if (7 + guessLine * 5 > 100) {
@@ -71,7 +71,7 @@ const GuessDistribution = ({guessesInfo}) => {
                     guessesInfo.map((guessLine, index) => (
                         <>
                             <View
-                                key={index}
+                                key={`guessLine-${index}`}
                             >
                                 <GuessDistributionLine 
                                     position={index + 1} 
@@ -90,9 +90,9 @@ const GuessDistribution = ({guessesInfo}) => {
 
 const EndScreen = ({won = false, name, currentRow}) => {
 
-    console.log('won in EndScreen:', won)
-    console.log('name in EndScreen:', name)
-    console.log('currentRow in EndScreen:', currentRow)
+    // console.log('won in EndScreen:', won)
+    // console.log('name in EndScreen:', name)
+    // console.log('currentRow in EndScreen:', currentRow)
     
     const [totalPlayed, setTotalPlayed] = useState(0)
     const [totalWins, setTotalWins] = useState(0)
@@ -112,10 +112,10 @@ const EndScreen = ({won = false, name, currentRow}) => {
 
     const readState = async () => {
         const dataString = await AsyncStorage.getItem('UID8765')
-        console.log('dataString UID8765:', dataString);
-        console.log('JSON.parse(dataString):', JSON.parse(dataString))
+        // console.log('dataString UID8765:', dataString);
+        // console.log('JSON.parse(dataString):', JSON.parse(dataString))
         const data = JSON.parse(dataString)
-        console.log('data:', data)
+        //console.log('data:', data)
            
         if (dataString === null && won === true) {
             guessesInfo.splice(currentRow - 1, 1, 1)
@@ -136,8 +136,8 @@ const EndScreen = ({won = false, name, currentRow}) => {
         
         if (dataString !== null) {
             const gamesArray = data.games
-            console.log('gamesArray:', gamesArray)
-            console.log('gamesArray.length:', gamesArray.length)
+            // console.log('gamesArray:', gamesArray)
+            // console.log('gamesArray.length:', gamesArray.length)
          
             if (won === false) {
                 const distribution = []
@@ -149,7 +149,7 @@ const EndScreen = ({won = false, name, currentRow}) => {
                         }
                     }
                     distribution.push(total)
-                    console.log('distribution:', distribution)
+                    //console.log('distribution:', distribution)
                 }
                 setGuessesInfo(distribution)
 

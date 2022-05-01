@@ -37,12 +37,12 @@ const Keyboard = ({
       {keys.map((keyRow, i) => (
         <View 
           style={styles.row} 
-          key={`row-${i}`}
+          key={`keyboard-row-${i}`}
         >
           {keyRow.map((key, index) => (
             <Pressable
               onPress={() => onKeyPressed(key)}
-              key={index}
+              key={`letter-${index}`}
               style={[
                 styles.key,
                 isLongButton(key) ? { width: keyWidth * 1.4 } : {},

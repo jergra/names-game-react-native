@@ -22,13 +22,13 @@ const randomChoice = Math.floor(Math.random() * NAMES.length)
 const Game = () => {
   const [showKeyboard, setShowKeyboard] = useState(true)
   const [name, setName] = useState(NAMES[randomChoice])
-  console.log('name:', name)
+  //console.log('name:', name)
 
   useEffect(() => {
     const choice = Math.floor(Math.random() * NAMES.length)
     const name = NAMES[choice]  
     setName(name)
-    console.log('name inside useEffect:', name)
+    //console.log('name inside useEffect:', name)
   }, [])
 
   const letters = name.split('')
@@ -54,7 +54,7 @@ const Game = () => {
   const checkIfValid = () => {
     const row = rows[currentRow - 1].join('')
     if (!VALID_NAMES.includes(row)) {
-      console.log(row, 'is not a valid name')
+      //console.log(row, 'is not a valid name')
       rows.splice(currentRow - 1, 1, Array(letters.length).fill('') )
       setRows(rows)
       setCurrentRow(currentRow - 1)
@@ -63,7 +63,7 @@ const Game = () => {
       return
       
     } else {
-      console.log(row, 'is a valid name')
+      //console.log(row, 'is a valid name')
       setCurrentCol(0)
       checkGameState()
       return
@@ -105,19 +105,19 @@ const Game = () => {
     return !checkIfWon() && currentRow === rows.length
   }
 
-  const shareScore = () => {
-    const textMap = rows
-      .map((row, i) => 
-        row.map((cell, j) => colorsToEmoji[getCellBGColor(i, j)]).join('')
-      )
-      .filter((row) => row)
-      .join('\n')
-    const textToShare = `Names Game \n ${textMap}`
-    Clipboard.setString(textToShare)
-    Alert.alert('Copied successfully', 'Share your score on your social media', [
-      {text: 'Play Again', onPress: restart}
-    ])
-  }
+  // const shareScore = () => {
+  //   const textMap = rows
+  //     .map((row, i) => 
+  //       row.map((cell, j) => colorsToEmoji[getCellBGColor(i, j)]).join('')
+  //     )
+  //     .filter((row) => row)
+  //     .join('\n')
+  //   const textToShare = `Names Game \n ${textMap}`
+  //   Clipboard.setString(textToShare)
+  //   Alert.alert('Copied successfully', 'Share your score on your social media', [
+  //     {text: 'Play Again', onPress: restart}
+  //   ])
+  // }
 
   // const restart = () => {
   //   const choice = Math.floor(Math.random() * NAMES.length)
@@ -211,7 +211,7 @@ const Game = () => {
       <ScrollView style={styles.map}>
         {rows.map((row, i) => (
           <Animated.View 
-            key={`row-${i}`} 
+            key={`game-row-${i}`} 
             style={styles.row}
             entering={SlideInLeft.delay(i * 80)} 
           >
